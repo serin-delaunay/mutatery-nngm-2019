@@ -109,10 +109,10 @@ tests = (
     }),
 )
 
-from tracery.modifiers.baseenglish import modifiers
+from tracery.modifiers import base_english
 for test_name, test in tests:
     grammar = tracery.Grammar(test_grammar)
-    grammar.add_modifiers(modifiers)
+    grammar.add_modifiers(base_english)
     print "testing ", test_name, "..."
     #print tracery.parse(test['src'])
     print grammar.flatten(test['src'])
