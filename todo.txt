@@ -1,0 +1,3 @@
+- the "recursivePush" test doesn't work.
+- there's no error added to the grammar's 'errors' attribute for missing
+  symbols.
