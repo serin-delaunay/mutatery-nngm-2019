@@ -1,11 +1,14 @@
 def replace(str, *params):
     return str.replace(params[0], params[1])
 
+
 def capitalizeAll(str, *params):
     return str.title()
 
+
 def capitalize_(str, *params):
     return str[0].upper() + str[1:]
+
 
 def a(str, *params):
     if len(str) > 0:
@@ -17,9 +20,11 @@ def a(str, *params):
             return "an " + str
     return "a " + str
 
+
 def firstS(str, *params):
     str2 = str.split(" ")
     return " ".join([s(str2[0])] + str2[1:])
+
 
 def s(str, *params):
     if str[-1] in 'shx':
@@ -31,6 +36,7 @@ def s(str, *params):
             return str + "s"
     else:
         return str + "s"
+
 
 def ed(str, *params):
     if str[-1] == 'e':
