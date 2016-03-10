@@ -1,3 +1,9 @@
-- the "recursivePush" test doesn't work.
+- the "recursivePush" test doesn't work as expected (comparing outputs to the
+  official test suite)
 - there's no error added to the grammar's 'errors' attribute for missing
   symbols.
+- the test suite needs to use an actual test harness thing (I just pasted in
+  the grammar/tests from the official suite and have been eyeballing the output
+  to compare differences, which is clearly not sustainable)
+- python 3 compatibility
+- etc.
