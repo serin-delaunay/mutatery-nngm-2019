@@ -88,6 +88,16 @@ class TestModifiers(unittest.TestCase):
         # Assert
         self.assertEqual(output, "an elephant")
 
+    def test_first_s(self):
+        # Arrange
+        input = "elephant in a phonebox"
+
+        # Act
+        output = modifiers.firstS(input)
+
+        # Assert
+        self.assertEqual(output, "elephants in a phonebox")
+
     def test_s_ends_in_x(self):
         # Arrange
         input = "box"
