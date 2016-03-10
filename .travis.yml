@@ -18,7 +18,7 @@ install:
  - if [ "$TRAVIS_PYTHON_VERSION" == "2.6" ]; then pip install unittest2; fi
 
 script:
- - coverage run --source=tracery tests/test.py
+ - coverage run --source=tracery -m nose tests/test_*.py
 
 after_success:
  - pip install coveralls
