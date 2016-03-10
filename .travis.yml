@@ -14,12 +14,18 @@ python:
  - 3.4
 
 install:
+ - pip install coverage
  - if [ "$TRAVIS_PYTHON_VERSION" == "2.6" ]; then pip install unittest2; fi
 
 script:
- - python tests/test.py
+ - coverage run --source=tracery tests/test.py
+
+after_success:
+ - pip install coveralls
+ - coveralls
 
 after_script:
+ - coverage report
  - pip install pep8 pyflakes
  - pyflakes . | tee >(wc -l)
  - pep8 --statistics --count .
