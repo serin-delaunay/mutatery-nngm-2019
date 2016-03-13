@@ -33,14 +33,14 @@ class Node(object):
             for i, section in enumerate(sections):
                 node = Node(self, i, section)
                 self.children.append(node)
-                if not(prevent_recursion):
+                if not prevent_recursion:
                     node.expand(prevent_recursion)
                 self.finished_text += node.finished_text
         else:
             self.errors.append("No child rule provided, can't expand children")
 
     def expand(self, prevent_recursion=False):
-        if not(self.is_expanded):
+        if not self.is_expanded:
             self.is_expanded = True
             self.expansion_errors = []
             # Types of nodes
@@ -98,9 +98,9 @@ class Node(object):
 
     def clear_escape_chars(self):
         self.finished_text = self.finished_text.replace(
-                "\\\\", "DOUBLEBACKSLASH").replace(
+            "\\\\", "DOUBLEBACKSLASH").replace(
                 "\\", "").replace(
-                "DOUBLEBACKSLASH", "\\")
+                    "DOUBLEBACKSLASH", "\\")
 
 
 class NodeAction(object):  # has a 'raw' attribute
@@ -227,7 +227,7 @@ class Grammar(object):
     def expand(self, rule, allow_escape_chars=False):
         root = self.create_root(rule)
         root.expand()
-        if not(allow_escape_chars):
+        if not allow_escape_chars:
             root.clear_escape_chars()
         self.errors.extend(root.errors)
         return root
@@ -262,10 +262,10 @@ def parse_tag(tag_contents):
     'postactions'
     """
     parsed = dict(
-            symbol=None,
-            preactions=[],
-            postactions=[],
-            modifiers=[])
+        symbol=None,
+        preactions=[],
+        postactions=[],
+        modifiers=[])
     sections, errors = parse(tag_contents)
     symbol_section = None
     for section in sections:
@@ -311,9 +311,9 @@ def parse(rule):
         sections.append({'type': type_, 'raw': raw_substring})
 
     for i, c in enumerate(rule):
-        if not(escaped):
+        if not escaped:
             if c == '[':
-                if depth == 0 and not(in_tag):
+                if depth == 0 and not in_tag:
                     if start < i:
                         create_section(start, i, 0)
                         last_escaped_char = None
@@ -322,7 +322,7 @@ def parse(rule):
                 depth += 1
             elif c == ']':
                 depth -= 1
-                if depth == 0 and not(in_tag):
+                if depth == 0 and not in_tag:
                     create_section(start, i, 2)
                     last_escaped_char = None
                     escaped_substring = ""
@@ -340,7 +340,7 @@ def parse(rule):
                             last_escaped_char = None
                             escaped_substring = ""
                         start = i + 1
-                    in_tag = not(in_tag)
+                    in_tag = not in_tag
             elif c == '\\':
                 escaped = True
                 escaped_substring = escaped_substring + rule[start:i]
