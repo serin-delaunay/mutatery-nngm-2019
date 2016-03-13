@@ -1,0 +1,41 @@
+language: python
+
+# Use container-based infrastructure
+sudo: false
+
+python:
+ - pypy
+ - pypy3
+ - 2.7
+ - 3.5
+ - 2.6
+ - 3.2
+ - 3.3
+ - 3.4
+
+install:
+ - pip install coverage
+ - if [ "$TRAVIS_PYTHON_VERSION" == "2.6" ]; then pip install unittest2; fi
+
+script:
+ - coverage run --source=tracery -m nose tests/test_*.py
+
+after_success:
+ - pip install coveralls
+ - coveralls
+
+after_script:
+ - coverage report
+ - pip install pep8 pyflakes
+ - pyflakes . | tee >(wc -l)
+ - pep8 --statistics --count .
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - python: 2.6
+    - python: 3.2
+    - python: 3.3
+    - python: 3.4
+    - python: 3.5
+    - python: pypy3

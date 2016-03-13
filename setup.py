@@ -9,7 +9,8 @@ except ImportError:
 setup(
     name='tracery',
     version='0.0.1',
-    description="Python port of Kate Compton's tracery text generation library",
+    description="Python port of Kate Compton's "
+                "tracery text generation library",
     long_description="TK",
     author="Allison Parrish",
     author_email='allison@decontextualize.com',

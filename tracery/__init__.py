@@ -1,6 +1,7 @@
 import re
 import random
 
+
 class Node(object):
     def __init__(self, parent, child_index, settings):
         self.errors = []
@@ -70,7 +71,7 @@ class Node(object):
                     preaction.activate()
                 self.finished_text = self.raw
                 selected_rule = self.grammar.select_rule(self.symbol, self,
-                        self.errors)
+                                                         self.errors)
                 self.expand_children(selected_rule, prevent_recursion)
 
                 # apply modifiers
@@ -88,7 +89,7 @@ class Node(object):
                         self.finished_text += "((." + mod_name + "))"
                     else:
                         self.finished_text = mod(self.finished_text,
-                                *mod_params)
+                                                 *mod_params)
 
             elif self.type == 2:
                 self.action = NodeAction(self, self.raw)
@@ -102,7 +103,7 @@ class Node(object):
                 "DOUBLEBACKSLASH", "\\")
 
 
-class NodeAction(object): # has a 'raw' attribute
+class NodeAction(object):  # has a 'raw' attribute
     def __init__(self, node, raw):
         self.node = node
         sections = raw.split(":")
@@ -137,7 +138,8 @@ class NodeAction(object): # has a 'raw' attribute
         elif self.type == 2:
             grammar.flatten(self.target, True)
 
-    def to_text(self): pass # FIXME
+    def to_text(self): pass  # FIXME
+
 
 class RuleSet(object):
     def __init__(self, grammar, raw):
@@ -168,7 +170,7 @@ class Symbol(object):
         self.raw_rules = raw_rules
         self.base_rules = RuleSet(grammar, raw_rules)
         self.clear_state()
-        
+
     def clear_state(self):
         self.stack = [self.base_rules]
         self.uses = []
@@ -177,23 +179,24 @@ class Symbol(object):
     def push_rules(self, raw_rules):
         rules = RuleSet(self.grammar, raw_rules)
         self.stack.append(rules)
-        
+
     def pop_rules(self):
         self.stack.pop()
 
     def select_rule(self, node, errors):
         self.uses.append({'node': node})
         if len(self.stack) == 0:
-            errors.append("The rule stack for '" + self.key + \
-                    "' is empty, too many pops?")
+            errors.append("The rule stack for '" + self.key +
+                          "' is empty, too many pops?")
         return self.stack[-1].select_rule()
 
     def get_active_rules(self):
         if len(self.stack) == 0:
-           return None
+            return None
         return self.stack[-1].select_rule()
 
-class Grammar(object): 
+
+class Grammar(object):
     def __init__(self, raw, settings=None):
         self.modifiers = {}
         self.load_from_raw_obj(raw)
@@ -251,6 +254,7 @@ class Grammar(object):
         else:
             errors.append("No symbol for " + str(key))
             return "((" + str(key) + "))"
+
 
 def parse_tag(tag_contents):
     """
@@ -338,7 +342,7 @@ def parse(rule):
                         start = i + 1
                     in_tag = not(in_tag)
             elif c == '\\':
-                escaped = True;
+                escaped = True
                 escaped_substring = escaped_substring + rule[start:i]
                 start = i + 1
                 last_escaped_char = i
@@ -356,9 +360,6 @@ def parse(rule):
     if depth < 0:
         errors.append("too many ]")
 
-    sections = [s for s in sections \
-            if not(s['type'] == 0 and len(s['raw']) == 0)]
+    sections = [s for s in sections
+                if not(s['type'] == 0 and len(s['raw']) == 0)]
     return sections, errors
-
-
-
