@@ -1,6 +1,6 @@
 import re
 import random
-
+from future.utils import iteritems
 
 class Node(object):
     def __init__(self, parent, child_index, settings):
@@ -205,7 +205,7 @@ class Grammar(object):
             self.settings = {}
 
     def clear_state(self):
-        for key, val in self.symbols.iteritems():
+        for key, val in iteritems(self.symbols):
             val.clear_state()
 
     def add_modifiers(self, mods):
@@ -218,7 +218,7 @@ class Grammar(object):
         self.symbols = dict()
         self.subgrammars = list()
         if self.raw:
-            for key, val in self.raw.iteritems():
+            for key, val in iteritems(self.raw):
                 self.symbols[key] = Symbol(self, key, val)
 
     def create_root(self, rule):
