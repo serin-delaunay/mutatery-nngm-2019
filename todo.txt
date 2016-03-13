@@ -2,5 +2,3 @@
   official test suite)
 - there's no error added to the grammar's 'errors' attribute for missing
   symbols.
-- python 3 compatibility
-- etc.
