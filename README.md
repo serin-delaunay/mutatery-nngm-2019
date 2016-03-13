@@ -1,7 +1,7 @@
 # Tracery for Python
 
 This is a (rough) port of [Kate Compton](http://www.galaxykate.com/)'s
-wonderful [Tracery](https://github.com/galaxykate/tracery) to Python. The port
+wonderful [Tracery](http://tracery.io/) to Python. The port
 is by [Allison Parrish](http://www.decontextualize.com/).
 
 I'm always writing little one-off recursive template/grammar expansion functions
@@ -53,6 +53,10 @@ This port is very fresh but I wanted to put it on Github so it would be easier
 to deploy my own bots that use the code. A lot remains to be done: see
 `todo.txt` for a (probably incomplete) to-do list. Feel free to submit pull
 requests or to open issues in the Github issue tracker.
+
+List of contributors:
+
+* Hugo van Kemenade (build process, code clean-up)
 
 ## License
 
