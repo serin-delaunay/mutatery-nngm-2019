@@ -1,5 +1,7 @@
 # Tracery for Python
 
+[![Build Status](https://travis-ci.org/aparrish/pytracery.svg?branch=master)](https://travis-ci.org/aparrish/pytracery)
+
 This is a (rough) port of [Kate Compton](http://www.galaxykate.com/)'s
 wonderful [Tracery](http://tracery.io/) to Python. The port
 is by [Allison Parrish](http://www.decontextualize.com/).
@@ -24,35 +26,37 @@ of `tracery.js` in the official repository's `tracery2` branch.
 See [Kate Compton's Tracery
 tutorial](http://www.crystalcodepalace.com/traceryTut.html) for information
 about how Tracery works. In the Python port, you use Python dictionaries
-instead of Javascript objects for the rules, but the concept is the same
+instead of JavaScript objects for the rules, but the concept is the same
 otherwise.
 
-    import tracery
-    from tracery.modifiers import base_english
+```python
+import tracery
+from tracery.modifiers import base_english
 
-    rules = {
-        'origin': '#hello.capitalize#, #location#!',
-        'hello': ['hello', 'greetings', 'howdy', 'hey'],
-        'location': ['world', 'solar system', 'galaxy', 'universe']
-    }
+rules = {
+    'origin': '#hello.capitalize#, #location#!',
+    'hello': ['hello', 'greetings', 'howdy', 'hey'],
+    'location': ['world', 'solar system', 'galaxy', 'universe']
+}
 
-    grammar = tracery.Grammar(rules)
-    grammar.add_modifiers(base_english)
-    print grammar.flatten("#origin#") # prints, e.g., "Hello, world!"
+grammar = tracery.Grammar(rules)
+grammar.add_modifiers(base_english)
+print grammar.flatten("#origin#") # prints, e.g., "Hello, world!"
+```
 
 Any valid Tracery grammar should work in this port. The `base_english`
-modifiers in `tracery.modifiers` are a port of the modifiers in the Javascript
+modifiers in `tracery.modifiers` are a port of the modifiers in the JavaScript
 package. Many aspects of Tracery are not standardized, so in some edge cases
 you may get output that doesn't exactly conform to what you would get if you
-used the same grammar with the Javascript version. (e.g., "None" in strings
-where in Javascript you might see "undefined")
+used the same grammar with the JavaScript version. (e.g., "None" in strings
+where in JavaScript you might see "undefined")
 
 ## Contributing
 
-This port is very fresh but I wanted to put it on Github so it would be easier
+This port is very fresh but I wanted to put it on GitHub so it would be easier
 to deploy my own bots that use the code. A lot remains to be done: see
 `todo.txt` for a (probably incomplete) to-do list. Feel free to submit pull
-requests or to open issues in the Github issue tracker.
+requests or to open issues in the GitHub issue tracker.
 
 List of contributors:
 
