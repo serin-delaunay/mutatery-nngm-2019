@@ -1,51 +1,51 @@
-def replace(str, *params):
-    return str.replace(params[0], params[1])
+def replace(text, *params):
+    return text.replace(params[0], params[1])
 
 
-def capitalizeAll(str, *params):
-    return str.title()
+def capitalizeAll(text, *params):
+    return text.title()
 
 
-def capitalize_(str, *params):
-    return str[0].upper() + str[1:]
+def capitalize_(text, *params):
+    return text[0].upper() + text[1:]
 
 
-def a(str, *params):
-    if len(str) > 0:
-        if str[0].lower() == 'u':
-            if len(str) > 2:
-                if str[2].lower() == 'i':
-                    return "a " + str
-        if str[0].lower() in "aeiou":
-            return "an " + str
-    return "a " + str
+def a(text, *params):
+    if len(text) > 0:
+        if text[0].lower() == 'u':
+            if len(text) > 2:
+                if text[2].lower() == 'i':
+                    return "a " + text
+        if text[0].lower() in "aeiou":
+            return "an " + text
+    return "a " + text
 
 
-def firstS(str, *params):
-    str2 = str.split(" ")
-    return " ".join([s(str2[0])] + str2[1:])
+def firstS(text, *params):
+    text2 = text.split(" ")
+    return " ".join([s(text2[0])] + text2[1:])
 
 
-def s(str, *params):
-    if str[-1] in 'shx':
-        return str + "es"
-    elif str[-1] == 'y':
-        if str[-2] not in "aeiou":
-            return str[:-1] + "ies"
+def s(text, *params):
+    if text[-1] in 'shx':
+        return text + "es"
+    elif text[-1] == 'y':
+        if text[-2] not in "aeiou":
+            return text[:-1] + "ies"
         else:
-            return str + "s"
+            return text + "s"
     else:
-        return str + "s"
+        return text + "s"
 
 
-def ed(str, *params):
-    if str[-1] == 'e':
-        return str + "d"
-    elif str[-1] == 'y':
-        if str[-2] not in "aeiou":
-            return str[:-1] + "ied"
+def ed(text, *params):
+    if text[-1] == 'e':
+        return text + "d"
+    elif text[-1] == 'y':
+        if text[-2] not in "aeiou":
+            return text[:-1] + "ied"
     else:
-        return str + "ed"
+        return text + "ed"
 
 base_english = {
     'replace': replace,
