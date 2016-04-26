@@ -1,6 +1,6 @@
 import re
 import random
-from future.utils import iteritems
+from six import iteritems
 
 class Node(object):
     def __init__(self, parent, child_index, settings):
