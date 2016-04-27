@@ -12,3 +12,5 @@ exclude_lines =
     # Don't complain about debug code
     if Image.DEBUG:
     if DEBUG:
+
+omit = tracery/__main__.py
