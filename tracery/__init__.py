@@ -1,6 +1,6 @@
 import re
 import random
-from six import iteritems
+
 
 class Node(object):
     def __init__(self, parent, child_index, settings):
@@ -205,7 +205,7 @@ class Grammar(object):
             self.settings = {}
 
     def clear_state(self):
-        for key, val in iteritems(self.symbols):
+        for val in self.symbols.values():
             val.clear_state()
 
     def add_modifiers(self, mods):
@@ -217,9 +217,8 @@ class Grammar(object):
         self.raw = raw
         self.symbols = dict()
         self.subgrammars = list()
-        if self.raw:
-            for key, val in iteritems(self.raw):
-                self.symbols[key] = Symbol(self, key, val)
+        if raw:
+            self.symbols = dict((k, Symbol(self, k, v)) for k, v in raw.items())
 
     def create_root(self, rule):
         return Node(self, 0, {'type': -1, 'raw': rule})
