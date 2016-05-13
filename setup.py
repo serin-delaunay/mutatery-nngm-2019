@@ -18,7 +18,7 @@ setup(
     packages=[
         'tracery',
     ],
-    install_requires=['future', 'six'],
+    install_requires=[],
     license="BSD",
     zip_safe=True,
     keywords='tracery',
