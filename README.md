@@ -51,6 +51,27 @@ you may get output that doesn't exactly conform to what you would get if you
 used the same grammar with the JavaScript version. (e.g., "None" in strings
 where in JavaScript you might see "undefined")
 
+## Command line
+
+You can run the module on a JSON Tracery grammar file on the command line to output example lines:
+```
+positional arguments:
+  json        Input JSON file
+  number      Number of lines to generate (default: 1)
+```
+
+For example:
+```
+$ python -m tracery potterpapers.json 
+Harry Potter and the Tchebyshev transforms of the first and second kind
+```
+```
+$ python -m tracery potterpapers.json 3
+Harry Potter and the Impact of Extremes in Outdoor Temperature and Sunshine Exposure on Birth Weight.
+Harry Potter and the Chromatin Remodelling Enzymes SNF2H and SNF2L Position Nucleosomes adjacent to CTCF and Other Transcription Factors.
+Harry Potter and the Model Organism Hermissenda crassicornis (Gastropoda: Heterobranchia) Is a Species Complex.
+```
+
 ## Contributing
 
 This port is very fresh but I wanted to put it on GitHub so it would be easier
