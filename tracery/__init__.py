@@ -1,6 +1,5 @@
 import re
 import random
-from past.builtins import basestring 
 
 class Node(object):
     def __init__(self, parent, child_index, settings):
@@ -148,7 +147,7 @@ class RuleSet(object):
         self.default_uses = []
         if isinstance(raw, list):
             self.default_rules = raw
-        elif isinstance(raw, basestring):
+        elif isinstance(raw, str):
             self.default_rules = [raw]
         else:
             self.default_rules = []
