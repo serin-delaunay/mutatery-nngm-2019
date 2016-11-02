@@ -1,6 +1,16 @@
 import re
 import random
 
+try:
+    unicode = unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    basestring = (str, bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    basestring = basestring
+
+
 class Node(object):
     def __init__(self, parent, child_index, settings):
         self.errors = []
@@ -147,7 +157,7 @@ class RuleSet(object):
         self.default_uses = []
         if isinstance(raw, list):
             self.default_rules = raw
-        elif isinstance(raw, str):
+        elif isinstance(raw, basestring):
             self.default_rules = [raw]
         else:
             self.default_rules = []
