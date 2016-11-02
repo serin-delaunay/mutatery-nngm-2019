@@ -1,6 +1,15 @@
 import re
 import random
-from past.builtins import basestring 
+
+try:
+    unicode = unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    basestring = (str, bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    basestring = basestring
+
 
 class Node(object):
     def __init__(self, parent, child_index, settings):
