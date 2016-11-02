@@ -339,6 +339,7 @@ class TestPush(TestPytracery):
         self.assert_ends_with(ret, " closed the book.")
         self.assertEqual(self.grammar.errors, [])
 
+
 class TestStrings(TestPytracery):
 
     def test_string_input(self):
@@ -353,7 +354,6 @@ class TestStrings(TestPytracery):
         grammar = tracery.Grammar(rules)
         grammar.add_modifiers(base_english)
         self.assertEqual("Hello, world!", grammar.flatten("#origin#"))
-
 
 
 class TestErrors(TestPytracery):
