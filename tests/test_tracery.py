@@ -339,6 +339,22 @@ class TestPush(TestPytracery):
         self.assert_ends_with(ret, " closed the book.")
         self.assertEqual(self.grammar.errors, [])
 
+class TestStrings(TestPytracery):
+
+    def test_string_input(self):
+        """The grammar should work properly if the input is a string rather than a list"""
+        # This errored in Py 3.5, taken straight from the README
+        rules = {
+            'origin': '#hello.capitalize#, #location#!',
+            'hello': ['hello'],
+            'location': ['world']
+        }
+
+        grammar = tracery.Grammar(rules)
+        grammar.add_modifiers(base_english)
+        self.assertEqual("Hello, world!", grammar.flatten("#origin#"))
+
+
 
 class TestErrors(TestPytracery):
 

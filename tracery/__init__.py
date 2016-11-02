@@ -1,6 +1,6 @@
 import re
 import random
-
+from past.builtins import basestring 
 
 class Node(object):
     def __init__(self, parent, child_index, settings):
