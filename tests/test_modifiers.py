@@ -169,6 +169,26 @@ class TestModifiers(unittest.TestCase):
         # Assert
         self.assertEqual(output, "jumped")
 
+    def test_uppercase(self):
+        # Arrange
+        text = "jump up"
+
+        # Act
+        output = modifiers.uppercase(text)
+
+        # Assert
+        self.assertEqual(output, "JUMP UP")
+
+    def test_lowercase(self):
+        # Arrange
+        text = "GET DOWN"
+
+        # Act
+        output = modifiers.lowercase(text)
+
+        # Assert
+        self.assertEqual(output, "get down")
+
 
 if __name__ == "__main__":
     unittest.main()

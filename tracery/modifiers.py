@@ -47,6 +47,14 @@ def ed(text, *params):
     else:
         return text + "ed"
 
+
+def uppercase(text, *params):
+    return text.upper()
+
+
+def lowercase(text, *params):
+    return text.lower()
+
 base_english = {
     'replace': replace,
     'capitalizeAll': capitalizeAll,
@@ -54,5 +62,7 @@ base_english = {
     'a': a,
     'firstS': firstS,
     's': s,
-    'ed': ed
+    'ed': ed,
+    'uppercase': uppercase,
+    'lowercase': lowercase
 }

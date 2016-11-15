@@ -343,7 +343,8 @@ class TestPush(TestPytracery):
 class TestStrings(TestPytracery):
 
     def test_string_input(self):
-        """The grammar should work properly if the input is a string rather than a list"""
+        """The grammar should work properly if the input is a string rather
+           than a list"""
         # This errored in Py 3.5, taken straight from the README
         rules = {
             'origin': '#hello.capitalize#, #location#!',
@@ -354,6 +355,17 @@ class TestStrings(TestPytracery):
         grammar = tracery.Grammar(rules)
         grammar.add_modifiers(base_english)
         self.assertEqual("Hello, world!", grammar.flatten("#origin#"))
+
+    def test_upper_and_lowercase(self):
+        rules = {
+            'origin': '#hello.lowercase#, #location.uppercase#!',
+            'hello': ['Hello'],
+            'location': ['world']
+        }
+
+        grammar = tracery.Grammar(rules)
+        grammar.add_modifiers(base_english)
+        self.assertEqual("hello, WORLD!", grammar.flatten("#origin#"))
 
 
 class TestErrors(TestPytracery):
