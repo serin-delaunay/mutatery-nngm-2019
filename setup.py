@@ -6,12 +6,18 @@ try:
 except ImportError:
     from distutils.core import setup
 
+with open('README.rst') as readme_file:
+    readme = readme_file.read()
+
+with open('HISTORY.rst') as history_file:
+    history = history_file.read().replace('.. :changelog:', '')
+
 setup(
     name='tracery',
-    version='0.0.1',
+    version='0.1.0',
     description="Python port of Kate Compton's "
                 "tracery text generation library",
-    long_description="TK",
+    long_description=readme + "\n\n" + history,
     author="Allison Parrish",
     author_email='allison@decontextualize.com',
     url='https://github.com/aparrish/tracery',
@@ -19,7 +25,7 @@ setup(
         'tracery',
     ],
     install_requires=[],
-    license="BSD",
+    license="Apache License 2.0",
     zip_safe=True,
     keywords='tracery',
     classifiers=[
