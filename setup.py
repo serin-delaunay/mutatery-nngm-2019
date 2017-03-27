@@ -14,13 +14,13 @@ with open('HISTORY.rst') as history_file:
 
 setup(
     name='tracery',
-    version='0.1.0',
+    version='0.1.1',
     description="Python port of Kate Compton's "
                 "tracery text generation library",
     long_description=readme + "\n\n" + history,
     author="Allison Parrish",
     author_email='allison@decontextualize.com',
-    url='https://github.com/aparrish/tracery',
+    url='https://github.com/aparrish/pytracery',
     packages=[
         'tracery',
     ],
