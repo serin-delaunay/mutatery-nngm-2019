@@ -1,4 +1,5 @@
-# Tracery for Python
+Tracery for Python
+==================
 
 .. image:: https://img.shields.io/travis/aparrish/pytracery.svg
         :target: https://travis-ci.org/aparrish/pytracery
@@ -17,7 +18,8 @@ The port is a fairly literal Python translation of `this version
 <https://github.com/galaxykate/tracery/blob/8baa6ec53271ce7526e14b0ae3069a7469c6f035/js/tracery/tracery.js>`_
 of `tracery.js` in the official repository's `tracery2` branch.
 
-## Installation
+Installation
+------------
 
 Install with pip like so::
 
@@ -27,7 +29,8 @@ You can also download the source code and install manually::
 
     python setup.py install
 
-## Usage
+Usage
+-----
 
 See `Kate Compton's Tracery
 tutorial <http://www.crystalcodepalace.com/traceryTut.html>`_ for information
@@ -57,7 +60,8 @@ you may get output that doesn't exactly conform to what you would get if you
 used the same grammar with the JavaScript version. (e.g., "None" in strings
 where in JavaScript you might see "undefined")
 
-## Command line
+Command line
+------------
 
 You can run the module on a JSON Tracery grammar file on the command line to output example lines::
 
@@ -75,7 +79,8 @@ For example::
     Harry Potter and the Chromatin Remodelling Enzymes SNF2H and SNF2L Position Nucleosomes adjacent to CTCF and Other Transcription Factors.
     Harry Potter and the Model Organism Hermissenda crassicornis (Gastropoda: Heterobranchia) Is a Species Complex.
 
-## License
+License
+-------
 
 This port inherits Tracery's original Apache License 2.0.
 
