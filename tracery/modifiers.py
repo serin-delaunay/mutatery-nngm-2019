@@ -27,10 +27,10 @@ def firstS(text, *params):
 
 
 def s(text, *params):
-    if text[-1] in 'shx':
+    if text[-1].lower() in 'shx':
         return text + "es"
-    elif text[-1] == 'y':
-        if text[-2] not in "aeiou":
+    elif text[-1].lower() == 'y':
+        if text[-2].lower() not in "aeiou":
             return text[:-1] + "ies"
         else:
             return text + "s"
@@ -39,10 +39,10 @@ def s(text, *params):
 
 
 def ed(text, *params):
-    if text[-1] == 'e':
+    if text[-1].lower() == 'e':
         return text + "d"
-    elif text[-1] == 'y':
-        if text[-2] not in "aeiou":
+    elif text[-1].lower() == 'y':
+        if text[-2].lower() not in "aeiou":
             return text[:-1] + "ied"
     else:
         return text + "ed"
