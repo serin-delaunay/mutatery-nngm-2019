@@ -159,15 +159,15 @@ class TestModifiers(unittest.TestCase):
         # Assert
         self.assertEqual(output, "boxes")
 
-#     def test_s_ends_in_x_uppercase(self):
-#         # Arrange
-#         text = "BOX"
-#
-#         # Act
-#         output = modifiers.s(text)
-#
-#         # Assert
-#         self.assertEqual(output, "BOXes")
+    def test_s_ends_in_x_uppercase(self):
+        # Arrange
+        text = "BOX"
+
+        # Act
+        output = modifiers.s(text)
+
+        # Assert
+        self.assertEqual(output, "BOXes")
 
     def test_s_ends_in_non_s(self):
         # Arrange
@@ -219,15 +219,15 @@ class TestModifiers(unittest.TestCase):
         # Assert
         self.assertEqual(output, "tellies")
 
-#     def test_s_ends_in_y_but_not_vowel_y_uppercase(self):
-#         # Arrange
-#         text = "TELLY"
-#
-#         # Act
-#         output = modifiers.s(text)
-#
-#         # Assert
-#         self.assertEqual(output, "TELLies")
+    def test_s_ends_in_y_but_not_vowel_y_uppercase(self):
+        # Arrange
+        text = "TELLY"
+
+        # Act
+        output = modifiers.s(text)
+
+        # Assert
+        self.assertEqual(output, "TELLies")
 
     def test_ed_ends_in_e(self):
         # Arrange
@@ -239,15 +239,15 @@ class TestModifiers(unittest.TestCase):
         # Assert
         self.assertEqual(output, "glided")
 
-#     def test_ed_ends_in_e_uppercase(self):
-#         # Arrange
-#         text = "GLIDE"
-#
-#         # Act
-#         output = modifiers.ed(text)
-#
-#         # Assert
-#         self.assertEqual(output, "GLIDEd")
+    def test_ed_ends_in_e_uppercase(self):
+        # Arrange
+        text = "GLIDE"
+
+        # Act
+        output = modifiers.ed(text)
+
+        # Assert
+        self.assertEqual(output, "GLIDEd")
 
     def test_ed_ends_in_y_but_not_vowel_y(self):
         # Arrange
@@ -259,15 +259,15 @@ class TestModifiers(unittest.TestCase):
         # Assert
         self.assertEqual(output, "shimmied")
 
-#     def test_ed_ends_in_y_but_not_vowel_y_uppercase(self):
-#         # Arrange
-#         text = "SHIMMY"
-#
-#         # Act
-#         output = modifiers.ed(text)
-#
-#         # Assert
-#         self.assertEqual(output, "SHIMMied")
+    def test_ed_ends_in_y_but_not_vowel_y_uppercase(self):
+        # Arrange
+        text = "SHIMMY"
+
+        # Act
+        output = modifiers.ed(text)
+
+        # Assert
+        self.assertEqual(output, "SHIMMied")
 
     def test_ed_ends_in_non_e_and_non_y(self):
         # Arrange
