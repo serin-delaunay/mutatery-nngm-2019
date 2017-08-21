@@ -12,11 +12,11 @@ def capitalize_(text, *params):
 
 def a(text, *params):
     if len(text) > 0:
-        if text[0].lower() == 'u':
+        if text[0] in "uU":
             if len(text) > 2:
-                if text[2].lower() == 'i':
+                if text[2] in "iI":
                     return "a " + text
-        if text[0].lower() in "aeiou":
+        if text[0] in "aeiouAEIOU":
             return "an " + text
     return "a " + text
 
@@ -27,10 +27,10 @@ def firstS(text, *params):
 
 
 def s(text, *params):
-    if text[-1].lower() in 'shx':
+    if text[-1] in "shxSHX":
         return text + "es"
-    elif text[-1].lower() == 'y':
-        if text[-2].lower() not in "aeiou":
+    elif text[-1] in "yY":
+        if text[-2] not in "aeiouAEIOU":
             return text[:-1] + "ies"
         else:
             return text + "s"
@@ -39,10 +39,10 @@ def s(text, *params):
 
 
 def ed(text, *params):
-    if text[-1].lower() == 'e':
+    if text[-1] in "eE":
         return text + "d"
-    elif text[-1].lower() == 'y':
-        if text[-2].lower() not in "aeiou":
+    elif text[-1] in "yY":
+        if text[-2] not in "aeiouAEIOU":
             return text[:-1] + "ied"
     else:
         return text + "ed"
