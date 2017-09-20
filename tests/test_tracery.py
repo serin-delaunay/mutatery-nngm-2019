@@ -245,6 +245,8 @@ class TestWebSpecifics(TestPytracery):
 
         # Assert
         self.assertEqual(ret, "((пправило))")
+        self.assertEqual(grammar_rule_not_found.errors,
+                         ["No symbol for пправило"])
 
     def test_svg(self):
         # Arrange
