@@ -227,7 +227,8 @@ class Grammar(object):
         self.symbols = dict()
         self.subgrammars = list()
         if raw:
-            self.symbols = dict((k, Symbol(self, k, v)) for k, v in raw.items())
+            self.symbols = dict(
+                (k, Symbol(self, k, v)) for k, v in raw.items())
 
     def create_root(self, rule):
         return Node(self, 0, {'type': -1, 'raw': rule})
@@ -260,8 +261,10 @@ class Grammar(object):
         if key in self.symbols:
             return self.symbols[key].select_rule(node, errors)
         else:
-            errors.append("No symbol for " + str(key))
-            return "((" + str(key) + "))"
+            if key is None:
+                key = str(None)
+            self.errors.append("No symbol for " + key)
+            return "((" + key + "))"
 
 
 def parse_tag(tag_contents):

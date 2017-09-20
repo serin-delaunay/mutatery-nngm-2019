@@ -55,6 +55,7 @@ def uppercase(text, *params):
 def lowercase(text, *params):
     return text.lower()
 
+
 base_english = {
     'replace': replace,
     'capitalizeAll': capitalizeAll,

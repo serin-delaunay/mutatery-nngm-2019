@@ -232,6 +232,22 @@ class TestWebSpecifics(TestPytracery):
         self.assertEqual(ret, "&#x2665; &#x2614; &#9749; &#x2665;")
         self.assertEqual(self.grammar.errors, [])
 
+    def test_unicode_rule_not_found(self):
+        # Arrange
+        rules = {
+            'origin': '#пправило#',
+            'rule not found': 'something',
+        }
+        grammar_rule_not_found = tracery.Grammar(rules)
+
+        # Act
+        ret = grammar_rule_not_found.flatten("#origin#")
+
+        # Assert
+        self.assertEqual(ret, "((пправило))")
+        self.assertEqual(grammar_rule_not_found.errors,
+                         ["No symbol for пправило"])
+
     def test_svg(self):
         # Arrange
         src = ('<svg width="100" height="70">'
@@ -337,7 +353,12 @@ class TestPush(TestPytracery):
         # Assert
         self.assertIn(" opened a book about a", ret)
         self.assert_ends_with(ret, " closed the book.")
-        self.assertEqual(self.grammar.errors, [])
+        self.assertEqual(
+            self.grammar.errors,
+            ['No symbol for hero', 'No symbol for occupation',
+             'No symbol for heroTheir', 'No symbol for hero',
+             'No symbol for didStuff', 'No symbol for heroThey',
+             'No symbol for didStuff', 'No symbol for heroThey'])
 
 
 class TestStrings(TestPytracery):
@@ -401,7 +422,7 @@ class TestErrors(TestPytracery):
 
         # Assert
         self.assertEqual(ret, "((unicorns))")
-        self.assertEqual(self.grammar.errors, [])
+        self.assertEqual(self.grammar.errors, ["No symbol for unicorns"])
 
     def test_missing_right_bracket(self):
         # Arrange
@@ -450,8 +471,9 @@ class TestErrors(TestPytracery):
         self.assertEqual(ret, "][][((None))][][[]]]]")
         self.assertEqual(
             self.grammar.errors,
-            ["unclosed tag", "1: empty tag", "1: empty action",
-             "10: empty tag", "unclosed tag", "too many ]"])
+            ['unclosed tag', 'No symbol for None', 'No symbol for None',
+             '1: empty tag', '1: empty action', '10: empty tag',
+             'unclosed tag', 'too many ]'])
 
 
 if __name__ == "__main__":
