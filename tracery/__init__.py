@@ -263,7 +263,7 @@ class Grammar(object):
         else:
             if key is None:
                 key = str(None)
-            errors.append("No symbol for " + key)
+            self.errors.append("No symbol for " + key)
             return "((" + key + "))"
 
 
