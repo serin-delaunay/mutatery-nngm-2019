@@ -232,6 +232,20 @@ class TestWebSpecifics(TestPytracery):
         self.assertEqual(ret, "&#x2665; &#x2614; &#9749; &#x2665;")
         self.assertEqual(self.grammar.errors, [])
 
+    def test_unicode_rule_not_found(self):
+        # Arrange
+        rules = {
+            'origin': '#пправило#',
+            'rule not found': 'something',
+        }
+        grammar_rule_not_found = tracery.Grammar(rules)
+
+        # Act
+        ret = grammar_rule_not_found.flatten("#origin#")
+
+        # Assert
+        self.assertEqual(ret, "((пправило))")
+
     def test_svg(self):
         # Arrange
         src = ('<svg width="100" height="70">'
