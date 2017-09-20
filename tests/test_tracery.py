@@ -472,8 +472,8 @@ class TestErrors(TestPytracery):
         self.assertEqual(
             self.grammar.errors,
             ['unclosed tag', 'No symbol for None', 'No symbol for None',
-            '1: empty tag', '1: empty action', '10: empty tag', 'unclosed tag',
-            'too many ]'])
+             '1: empty tag', '1: empty action', '10: empty tag',
+             'unclosed tag', 'too many ]'])
 
 
 if __name__ == "__main__":
