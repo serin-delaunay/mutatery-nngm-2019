@@ -353,7 +353,12 @@ class TestPush(TestPytracery):
         # Assert
         self.assertIn(" opened a book about a", ret)
         self.assert_ends_with(ret, " closed the book.")
-        self.assertEqual(self.grammar.errors, [])
+        self.assertEqual(
+            self.grammar.errors,
+            ['No symbol for hero', 'No symbol for occupation',
+             'No symbol for heroTheir', 'No symbol for hero',
+             'No symbol for didStuff', 'No symbol for heroThey',
+             'No symbol for didStuff', 'No symbol for heroThey'])
 
 
 class TestStrings(TestPytracery):
@@ -417,7 +422,7 @@ class TestErrors(TestPytracery):
 
         # Assert
         self.assertEqual(ret, "((unicorns))")
-        self.assertEqual(self.grammar.errors, [])
+        self.assertEqual(self.grammar.errors, ["No symbol for unicorns"])
 
     def test_missing_right_bracket(self):
         # Arrange
@@ -466,8 +471,9 @@ class TestErrors(TestPytracery):
         self.assertEqual(ret, "][][((None))][][[]]]]")
         self.assertEqual(
             self.grammar.errors,
-            ["unclosed tag", "1: empty tag", "1: empty action",
-             "10: empty tag", "unclosed tag", "too many ]"])
+            ['unclosed tag', 'No symbol for None', 'No symbol for None',
+            '1: empty tag', '1: empty action', '10: empty tag', 'unclosed tag',
+            'too many ]'])
 
 
 if __name__ == "__main__":
