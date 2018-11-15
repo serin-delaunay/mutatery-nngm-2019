@@ -51,7 +51,7 @@ otherwise.
 
     grammar = tracery.Grammar(rules)
     grammar.add_modifiers(base_english)
-    print grammar.flatten("#origin#") # prints, e.g., "Hello, world!"
+    print(grammar.flatten("#origin#"))  # prints, e.g., "Hello, world!"
 
 Any valid Tracery grammar should work in this port. The ``base_english``
 modifiers in ``tracery.modifiers`` are a port of the modifiers in the JavaScript
