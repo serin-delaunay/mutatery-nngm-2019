@@ -4,10 +4,7 @@
 Unit tests for pytracery
 """
 from __future__ import print_function, unicode_literals
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
+import unittest
 
 import sys
 import os.path
@@ -63,12 +60,12 @@ class TestPytracery(unittest.TestCase):
     def assert_starts_with(self, a, b, msg=None):
         self.assertTrue(
             a.startswith(b),
-            msg or "{0} does not start with {1}".format(a, b))
+            msg or "{} does not start with {}".format(a, b))
 
     def assert_ends_with(self, a, b, msg=None):
         self.assertTrue(
             a.endswith(b),
-            msg or "{0} does not end with {1}".format(a, b))
+            msg or "{} does not end with {}".format(a, b))
 
 
 class TestBasics(TestPytracery):

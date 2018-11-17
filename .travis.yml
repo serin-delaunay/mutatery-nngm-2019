@@ -3,20 +3,22 @@ language: python
 # Use container-based infrastructure
 sudo: false
 
-python:
- - pypy
- - pypy3
- - 2.7
- - 3.6
- - 3.5
- - 3.4
- - 3.3
- - 2.6
+matrix:
+  fast_finish: true
+  include:
+    - python: pypy
+    - python: pypy3
+    - python: 3.7
+      dist: xenial
+      sudo: true
+    - python: 3.6
+    - python: 3.5
+    - python: 3.4
+    - python: 2.7
 
 install:
  - pip install -r requirements.txt
  - pip install coverage
- - if [ "$TRAVIS_PYTHON_VERSION" == "2.6" ]; then pip install unittest2; fi
 
 script:
  - coverage run --source=tracery -m nose tests/test_*.py
@@ -30,6 +32,3 @@ after_script:
  - pip install pep8 pyflakes
  - pyflakes . | tee >(wc -l)
  - pep8 --statistics --count .
-
-matrix:
-  fast_finish: true
