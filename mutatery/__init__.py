@@ -31,7 +31,7 @@ class Node(object):
         self.type = settings.get('type', None)
         self.is_expanded = False
 
-    def expand_children(self, child_rule, prevent_recursion=False):
+    def expand_children(self, child_rule, path, prevent_recursion=False):
         self.children = []
         self.finished_text = ""
 
@@ -43,12 +43,12 @@ class Node(object):
                 node = Node(self, i, section)
                 self.children.append(node)
                 if not prevent_recursion:
-                    node.expand(prevent_recursion)
+                    node.expand(path + (i,), prevent_recursion)
                 self.finished_text += node.finished_text
         else:
             self.errors.append("No child rule provided, can't expand children")
 
-    def expand(self, prevent_recursion=False):
+    def expand(self, path, prevent_recursion=False):
         if not self.is_expanded:
             self.is_expanded = True
             self.expansion_errors = []
@@ -60,7 +60,7 @@ class Node(object):
             #  2: Action ("[pushTarget:pushRule], [pushTarget:POP]",
             #     more in the future)
             if self.type == -1:
-                self.expand_children(self.raw, prevent_recursion)
+                self.expand_children(self.raw, path, prevent_recursion)
 
             elif self.type == 0:
                 self.finished_text = self.raw
@@ -76,12 +76,12 @@ class Node(object):
                 for preaction in self.preactions:
                     if preaction.type == 0:
                         self.postactions.append(preaction.create_undo())
-                for preaction in self.preactions:
-                    preaction.activate()
+                for i, preaction in enumerate(self.preactions, 1):
+                    preaction.activate(path + (-i,))
                 self.finished_text = self.raw
                 selected_rule = self.grammar.select_rule(self.symbol, self,
-                                                         self.errors)
-                self.expand_children(selected_rule, prevent_recursion)
+                                                         self.errors, path)
+                self.expand_children(selected_rule, path, prevent_recursion)
 
                 # apply modifiers
                 for mod_name in self.modifiers:
@@ -102,7 +102,7 @@ class Node(object):
 
             elif self.type == 2:
                 self.action = NodeAction(self, self.raw)
-                self.action.activate()
+                self.action.activate(path + (-1,))
                 self.finished_text = ""
 
     def clear_escape_chars(self):
@@ -131,7 +131,7 @@ class NodeAction(object):  # has a 'raw' attribute
             return NodeAction(self.node, self.target + ":POP")
         return None
 
-    def activate(self):
+    def activate(self, path):
         grammar = self.node.grammar
         if self.type == 0:
             self.rule_sections = self.rule.split(",")
@@ -139,13 +139,13 @@ class NodeAction(object):  # has a 'raw' attribute
             self.rule_nodes = []
             for rule_section in self.rule_sections:
                 n = Node(grammar, 0, {'type': -1, 'raw': rule_section})
-                n.expand()
+                n.expand(path)
                 self.finished_rules.append(n.finished_text)
             grammar.push_rules(self.target, self.finished_rules, self)
         elif self.type == 1:
             grammar.pop_rules(self.target)
         elif self.type == 2:
-            grammar.flatten(self.target, True)
+            grammar.flatten(self.target, path, True)
 
     def to_text(self): pass  # FIXME
 
@@ -162,11 +162,23 @@ class RuleSet(object):
         else:
             self.default_rules = []
 
-    def select_rule(self):
+    def select_rule(self, path):
         # in kate's code there's a bunch of stuff for different methods of
         # selecting a rule, none of which seem to be implemented yet! so for
         # now I'm just going to ...
-        return random.choice(self.default_rules)
+        if len(set(self.default_rules)) == 1:
+            return self.default_rules[0]
+
+        if path in self.grammar.choices:
+            return self.grammar.choices[path]
+        else:
+            if path == self.grammar.mutated_path:
+                remaining_rules = [r for r in self.default_rules if r != self.grammar.mutated_choice]
+            else:
+                remaining_rules = self.default_rules
+            result = random.choice(remaining_rules)
+            self.grammar.choices[path] = result
+            return result
 
     def clear_state(self):
         self.default_uses = []
@@ -192,17 +204,17 @@ class Symbol(object):
     def pop_rules(self):
         self.stack.pop()
 
-    def select_rule(self, node, errors):
+    def select_rule(self, node, errors, path):
         self.uses.append({'node': node})
         if len(self.stack) == 0:
             errors.append("The rule stack for '" + self.key +
                           "' is empty, too many pops?")
-        return self.stack[-1].select_rule()
+        return self.stack[-1].select_rule(path)
 
-    def get_active_rules(self):
-        if len(self.stack) == 0:
-            return None
-        return self.stack[-1].select_rule()
+    # def get_active_rules(self, path):
+        # if len(self.stack) == 0:
+            # return None
+        # return self.stack[-1].select_rule(path)
 
 
 class Grammar(object):
@@ -210,6 +222,9 @@ class Grammar(object):
         self.modifiers = {}
         self.load_from_raw_obj(raw)
         self.errors = []
+        self.choices = {}
+        self.mutated_path = None
+        self.mutated_choice = None
         if settings is None:
             self.settings = {}
 
@@ -233,16 +248,16 @@ class Grammar(object):
     def create_root(self, rule):
         return Node(self, 0, {'type': -1, 'raw': rule})
 
-    def expand(self, rule, allow_escape_chars=False):
+    def expand(self, rule, path, allow_escape_chars=False):
         root = self.create_root(rule)
-        root.expand()
+        root.expand(path)
         if not allow_escape_chars:
             root.clear_escape_chars()
         self.errors.extend(root.errors)
         return root
 
-    def flatten(self, rule, allow_escape_chars=False):
-        root = self.expand(rule, allow_escape_chars)
+    def flatten(self, rule, path=(), allow_escape_chars=False):
+        root = self.expand(rule, path, allow_escape_chars)
         return root.finished_text
 
     def push_rules(self, key, raw_rules, source_action=None):
@@ -257,9 +272,9 @@ class Grammar(object):
         else:
             self.symbols[key].pop_rules()
 
-    def select_rule(self, key, node, errors):
+    def select_rule(self, key, node, errors, path):
         if key in self.symbols:
-            return self.symbols[key].select_rule(node, errors)
+            return self.symbols[key].select_rule(node, errors, path)
         else:
             if key is None:
                 key = str(None)
